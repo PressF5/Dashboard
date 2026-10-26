@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: tilda-analytics-api
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/tilda_analytics}
+    username: ${SPRING_DATASOURCE_USERNAME:tilda}
+    password: ${SPRING_DATASOURCE_PASSWORD:change-me}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+tilda:
+  project-id: ${TILDA_PROJECT_ID:15288386}
+  stats-url: ${TILDA_STATS_URL:https://stats.tilda.cc/projects/statistics/submit/}
+  cookie: ${TILDA_COOKIE:}
+analytics:
+  sync-cron: ${ANALYTICS_SYNC_CRON:0 15 3 * * *}
